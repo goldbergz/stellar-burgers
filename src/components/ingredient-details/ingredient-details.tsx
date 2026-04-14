@@ -11,7 +11,6 @@ import {
 import { useParams } from 'react-router-dom';
 
 export const IngredientDetails: FC = () => {
-  /** TODO: взять переменную из стора */
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
 
