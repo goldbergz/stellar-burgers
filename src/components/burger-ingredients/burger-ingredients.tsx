@@ -6,14 +6,20 @@ import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 import { useDispatch, useSelector } from '../../services/store';
 import {
   getIngredients,
-  selectIngredients
+  selectError,
+  selectIngredients,
+  selectIsLoading
 } from '../../services/slices/ingredientsSlice';
+import { Preloader } from '@ui';
 
 export const BurgerIngredients: FC = () => {
   /** TODO: взять переменные из стора */
   const dispatch = useDispatch();
 
   const ingredients = useSelector(selectIngredients);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+
   const buns = useMemo(
     () => ingredients.filter((item) => item.type === 'bun'),
     [ingredients]
@@ -32,7 +38,6 @@ export const BurgerIngredients: FC = () => {
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
-
   const titleBunRef = useRef<HTMLHeadingElement>(null);
   const titleMainRef = useRef<HTMLHeadingElement>(null);
   const titleSaucesRef = useRef<HTMLHeadingElement>(null);
@@ -68,6 +73,14 @@ export const BurgerIngredients: FC = () => {
     if (tab === 'sauce')
       titleSaucesRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  if (isLoading || !ingredients) {
+    return <Preloader />;
+  }
+
+  if (!isLoading && error) {
+    return <p>Запрос ингридиентов завершился с ошибкой: {error}</p>;
+  }
 
   return (
     <BurgerIngredientsUI

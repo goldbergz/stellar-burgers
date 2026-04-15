@@ -1,6 +1,7 @@
 import { getFeedsApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrdersData } from '@utils-types';
+import { RootState } from '../store';
 
 interface FeedState extends TOrdersData {
   isLoading: boolean;
@@ -30,6 +31,7 @@ const feedSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getFeed.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.orders = action.payload.orders;
         state.total = action.payload.total;
         state.totalToday = action.payload.totalToday;
@@ -40,5 +42,8 @@ const feedSlice = createSlice({
       });
   }
 });
+
+export const feedSelector = (state: RootState) => state.feed;
+export const feedOrdersSelector = (state: RootState) => state.feed.orders;
 
 export default feedSlice.reducer;

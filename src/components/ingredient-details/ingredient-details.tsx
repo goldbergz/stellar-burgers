@@ -29,7 +29,7 @@ export const IngredientDetails: FC = () => {
   }
 
   if (!isLoading && error) {
-    return <p>Запрос ингридиентов завершился с ошибкой: {error}</p>;
+    return <p>Запрос деталей ингридиента завершился с ошибкой: {error}</p>;
   }
 
   return <IngredientDetailsUI ingredientData={ingredientData} />;
