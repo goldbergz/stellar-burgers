@@ -11,15 +11,13 @@ interface ingredientsState {
 
 const initialState: ingredientsState = {
   ingredients: [],
-  isLoading: true,
+  isLoading: false,
   error: null
 };
 
 export const getIngredients = createAsyncThunk(
-  'ingridients/getAll',
-  async () => {
-    return await getIngredientsApi();
-  }
+  'ingredients/getAll',
+  async () => await getIngredientsApi()
 );
 
 export const ingredientsSlice = createSlice({
@@ -27,16 +25,10 @@ export const ingredientsSlice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    selectIngredients: (sliceState) => {
-      return sliceState.ingredients;
-    },
+    selectIngredients: (sliceState) => sliceState.ingredients,
 
-    selectIsLoading: (sliceState) => {
-      return sliceState.isLoading;
-    },
-    selectError: (sliceState) => {
-      return sliceState.error;
-    }
+    selectIsLoading: (sliceState) => sliceState.isLoading,
+    selectError: (sliceState) => sliceState.error
   },
   extraReducers: (builder) => {
     builder

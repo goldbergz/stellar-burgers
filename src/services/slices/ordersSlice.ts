@@ -6,6 +6,7 @@ import {
 } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
+import { RootState } from '../store';
 
 interface OrdersState {
   orders: TOrder[];
@@ -23,15 +24,14 @@ const initialState: OrdersState = {
   error: null
 };
 
-export const getOrders = createAsyncThunk('orders/getAll', async () => {
-  return await getOrdersApi();
-});
+export const getOrders = createAsyncThunk(
+  'orders/getAll',
+  async () => await getOrdersApi()
+);
 
 export const createOrder = createAsyncThunk(
   'orders/create',
-  async (ingredients: string[]) => {
-    return await orderBurgerApi(ingredients);
-  }
+  async (ingredients: string[]) => await orderBurgerApi(ingredients)
 );
 
 export const getOrderByNumber = createAsyncThunk(
@@ -88,3 +88,7 @@ const ordersSlice = createSlice({
 });
 
 export default ordersSlice.reducer;
+
+export const selectIsLoading = (state: RootState) => state.orders.isLoading;
+export const selectCreatedOrder = (state: RootState) =>
+  state.orders.createdOrder;

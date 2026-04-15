@@ -13,7 +13,7 @@ const initialState: ConstructorState = {
 };
 
 const constructorSlice = createSlice({
-  name: 'constructor',
+  name: 'burgerConstructor',
   initialState,
   reducers: {
     setBun(state, action: PayloadAction<TIngredient>) {
@@ -39,4 +39,5 @@ export const { setBun, addIngredient, removeIngredient, clearConstructor } =
 
 export default constructorSlice.reducer;
 
-export const selectConstructorItems = (state: RootState) => state.constructor;
+export const selectConstructorItems = (state: RootState) =>
+  state.burgerConstructor;

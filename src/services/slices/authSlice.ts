@@ -23,16 +23,13 @@ const initialState: AuthState = {
 
 export const login = createAsyncThunk(
   'auth/login',
-  async (data: { email: string; password: string }) => {
-    return await loginUserApi(data);
-  }
+  async (data: { email: string; password: string }) => await loginUserApi(data)
 );
 
 export const register = createAsyncThunk(
   'auth/register',
-  async (data: { email: string; password: string; name: string }) => {
-    return await registerUserApi(data);
-  }
+  async (data: { email: string; password: string; name: string }) =>
+    await registerUserApi(data)
 );
 
 export const getUser = createAsyncThunk('auth/getUser', async () => {

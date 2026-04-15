@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
   auth: authSlice,
   orders: ordersSlice,
   feed: feedSlice,
-  constructor: constructorSlice
+  burgerConstructor: constructorSlice
 });
 
 const store = configureStore({

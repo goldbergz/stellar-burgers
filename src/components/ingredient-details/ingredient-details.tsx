@@ -7,7 +7,7 @@ import {
   selectError,
   selectIngredientById,
   selectIsLoading
-} from 'src/services/slices/ingredientsSlice';
+} from '../../services/slices/ingredientsSlice';
 import { useParams } from 'react-router-dom';
 
 export const IngredientDetails: FC = () => {
