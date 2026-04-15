@@ -123,4 +123,5 @@ const authSlice = createSlice({
 
 export const selectIsLoadingAuth = (state: RootState) => state.auth.isLoading;
 export const selectErrorAuth = (state: RootState) => state.auth.error;
+export const selectUser = (state: RootState) => state.auth.user;
 export default authSlice.reducer;

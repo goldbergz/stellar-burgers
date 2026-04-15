@@ -96,6 +96,7 @@ const ordersSlice = createSlice({
 export default ordersSlice.reducer;
 
 export const selectIsLoading = (state: RootState) => state.orders.isLoading;
+export const selectOrders = (state: RootState) => state.orders.orders;
 export const selectCreatedOrder = (state: RootState) =>
   state.orders.createdOrder;
 export const selectCurrentOrder = (state: RootState) =>

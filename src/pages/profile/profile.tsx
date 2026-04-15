@@ -1,25 +1,26 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { useSelector } from '../../services/store';
+import { selectUser } from '../../services/slices/authSlice';
 
 export const Profile: FC = () => {
   /** TODO: взять переменную из стора */
-  const user = {
-    name: '',
-    email: ''
-  };
+  const user = useSelector(selectUser);
 
   const [formValue, setFormValue] = useState({
-    name: user.name,
-    email: user.email,
+    name: '',
+    email: '',
     password: ''
   });
 
   useEffect(() => {
-    setFormValue((prevState) => ({
-      ...prevState,
-      name: user?.name || '',
-      email: user?.email || ''
-    }));
+    if (!user) return;
+
+    setFormValue({
+      name: user.name,
+      email: user.email,
+      password: ''
+    });
   }, [user]);
 
   const isFormChanged =
@@ -32,6 +33,8 @@ export const Profile: FC = () => {
   };
 
   const handleCancel = (e: SyntheticEvent) => {
+    if (!user) return;
+
     e.preventDefault();
     setFormValue({
       name: user.name,

@@ -30,7 +30,7 @@ export const Register: FC = () => {
       })
     ).then((res) => {
       if (res.meta.requestStatus === 'fulfilled') {
-        navigate('/profile');
+        navigate('/profile', { replace: true });
       }
     });
   };
@@ -41,7 +41,7 @@ export const Register: FC = () => {
 
   return (
     <RegisterUI
-      errorText={error || ''}
+      errorText={error || 'Register error'}
       email={email}
       userName={userName}
       password={password}
