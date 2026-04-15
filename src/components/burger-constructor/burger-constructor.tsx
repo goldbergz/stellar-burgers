@@ -7,6 +7,7 @@ import {
   selectConstructorItems
 } from '../../services/slices/constructorSlice';
 import {
+  clearOrder,
   createOrder,
   selectCreatedOrder,
   selectIsLoading
@@ -19,8 +20,6 @@ export const BurgerConstructor: FC = () => {
   console.log('constructorItems:', constructorItems);
   const orderRequest = useSelector(selectIsLoading);
   const orderModalData = useSelector(selectCreatedOrder);
-  // const orderRequest = false;
-  // const orderModalData = null;
 
   const ingredientsIds = useMemo(() => {
     if (!constructorItems.bun) return [];
@@ -42,7 +41,7 @@ export const BurgerConstructor: FC = () => {
       });
   };
   const closeOrderModal = () => {
-    dispatch(clearConstructor());
+    dispatch(clearOrder());
   };
 
   const price = useMemo(

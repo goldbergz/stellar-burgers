@@ -27,6 +27,23 @@ const constructorSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
+    moveIngredientUp(state, action: PayloadAction<number>) {
+      const index = action.payload;
+      if (index === 0) return;
+
+      const temp = state.ingredients[index - 1];
+      state.ingredients[index - 1] = state.ingredients[index];
+      state.ingredients[index] = temp;
+    },
+
+    moveIngredientDown(state, action: PayloadAction<number>) {
+      const index = action.payload;
+      if (index === state.ingredients.length - 1) return;
+
+      const temp = state.ingredients[index + 1];
+      state.ingredients[index + 1] = state.ingredients[index];
+      state.ingredients[index] = temp;
+    },
     clearConstructor(state) {
       state.bun = null;
       state.ingredients = [];
@@ -34,8 +51,14 @@ const constructorSlice = createSlice({
   }
 });
 
-export const { setBun, addIngredient, removeIngredient, clearConstructor } =
-  constructorSlice.actions;
+export const {
+  setBun,
+  addIngredient,
+  removeIngredient,
+  moveIngredientUp,
+  moveIngredientDown,
+  clearConstructor
+} = constructorSlice.actions;
 
 export default constructorSlice.reducer;
 
