@@ -8,6 +8,8 @@ import {
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
+import { setCookie } from '../../utils/cookie';
+import { RootState } from '../store';
 
 interface AuthState {
   user: TUser | null;
@@ -62,6 +64,8 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.user;
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
+        setCookie('accessToken', action.payload.accessToken);
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
@@ -74,6 +78,8 @@ const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.user;
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
+        setCookie('accessToken', action.payload.accessToken);
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
@@ -115,4 +121,6 @@ const authSlice = createSlice({
   }
 });
 
+export const selectIsLoadingAuth = (state: RootState) => state.auth.isLoading;
+export const selectErrorAuth = (state: RootState) => state.auth.error;
 export default authSlice.reducer;

@@ -22,6 +22,12 @@ import {
   useNavigate
 } from 'react-router-dom';
 import { ProtectedRoute } from '../ProtecredRoute';
+import { useSelector } from '../../services/store';
+import {
+  selectError,
+  selectIngredients,
+  selectIsLoading
+} from '../../services/slices/ingredientsSlice';
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -140,9 +146,13 @@ const AppRoutes = () => {
 
 const App = () => {
   /** TODO: взять переменные из стора */
+  // const isIngredientsLoading = useSelector(selectIsLoading);
+  // const ingredients = useSelector(selectIngredients);
+  // const error = useSelector(selectError);
+
   const isIngredientsLoading = false;
-  const ingredients = [];
-  const error = null;
+  const ingredients = useSelector(selectIngredients);
+  const error = useSelector(selectError);
 
   return (
     <BrowserRouter>
