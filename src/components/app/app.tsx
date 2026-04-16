@@ -21,7 +21,7 @@ import {
   useLocation,
   useNavigate
 } from 'react-router-dom';
-import { ProtectedRoute } from '../../services/Route/ProtecredRoute';
+import { ProtectedRoute } from '../Route/ProtecredRoute';
 import { useDispatch, useSelector } from '../../services/store';
 import {
   getIngredients,
@@ -29,7 +29,7 @@ import {
   selectIngredients,
   selectIsLoading
 } from '../../services/slices/ingredientsSlice';
-import { GuestRoute } from '../../services/Route/GuestRoute';
+import { GuestRoute } from '../Route/GuestRoute';
 import { useEffect } from 'react';
 import { getCookie } from '../../utils/cookie';
 import { getUser } from '../../services/slices/authSlice';

@@ -9,7 +9,6 @@ type Props = {
 
 export const GuestRoute = ({ children }: Props) => {
   const user = useSelector(selectUser);
-  console.log('user' + user);
 
   if (user) {
     return <Navigate to='/' replace />;

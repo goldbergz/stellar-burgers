@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
-import { useSelector } from '../store';
-import { selectUser } from '../slices/authSlice';
+import { useSelector } from '../../services/store';
+import { selectUser } from '../../services/slices/authSlice';
 import { Navigate, useLocation } from 'react-router-dom';
 
 type ProtectedRouteProps = {
