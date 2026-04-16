@@ -3,9 +3,8 @@ import { useInView } from 'react-intersection-observer';
 
 import { TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
-import { useDispatch, useSelector } from '../../services/store';
+import { useSelector } from '../../services/store';
 import {
-  getIngredients,
   selectError,
   selectIngredients,
   selectIsLoading
@@ -13,9 +12,6 @@ import {
 import { Preloader } from '@ui';
 
 export const BurgerIngredients: FC = () => {
-  /** TODO: взять переменные из стора */
-  const dispatch = useDispatch();
-
   const ingredients = useSelector(selectIngredients);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
@@ -35,9 +31,6 @@ export const BurgerIngredients: FC = () => {
 
   const [currentTab, setCurrentTab] = useState<TTabMode>('bun');
 
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
   const titleBunRef = useRef<HTMLHeadingElement>(null);
   const titleMainRef = useRef<HTMLHeadingElement>(null);
   const titleSaucesRef = useRef<HTMLHeadingElement>(null);

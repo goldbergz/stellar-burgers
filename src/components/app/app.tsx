@@ -21,13 +21,18 @@ import {
   useLocation,
   useNavigate
 } from 'react-router-dom';
-import { ProtectedRoute } from '../ProtecredRoute';
-import { useSelector } from '../../services/store';
+import { ProtectedRoute } from '../../services/Route/ProtecredRoute';
+import { useDispatch, useSelector } from '../../services/store';
 import {
+  getIngredients,
   selectError,
   selectIngredients,
   selectIsLoading
 } from '../../services/slices/ingredientsSlice';
+import { GuestRoute } from '../../services/Route/GuestRoute';
+import { useEffect } from 'react';
+import { getCookie } from '../../utils/cookie';
+import { getUser } from '../../services/slices/authSlice';
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -48,33 +53,33 @@ const AppRoutes = () => {
         <Route
           path='/login'
           element={
-            <ProtectedRoute>
+            <GuestRoute>
               <Login />
-            </ProtectedRoute>
+            </GuestRoute>
           }
         />
         <Route
           path='/register'
           element={
-            <ProtectedRoute>
+            <GuestRoute>
               <Register />
-            </ProtectedRoute>
+            </GuestRoute>
           }
         />
         <Route
           path='/forgot-password'
           element={
-            <ProtectedRoute>
+            <GuestRoute>
               <ForgotPassword />
-            </ProtectedRoute>
+            </GuestRoute>
           }
         />
         <Route
           path='/reset-password'
           element={
-            <ProtectedRoute>
+            <GuestRoute>
               <ResetPassword />
-            </ProtectedRoute>
+            </GuestRoute>
           }
         />
 
@@ -145,14 +150,20 @@ const AppRoutes = () => {
 };
 
 const App = () => {
-  /** TODO: взять переменные из стора */
-  // const isIngredientsLoading = useSelector(selectIsLoading);
-  // const ingredients = useSelector(selectIngredients);
-  // const error = useSelector(selectError);
-
-  const isIngredientsLoading = false;
+  const dispatch = useDispatch();
+  const isIngredientsLoading = useSelector(selectIsLoading);
   const ingredients = useSelector(selectIngredients);
   const error = useSelector(selectError);
+
+  useEffect(() => {
+    if (ingredients.length === 0 && !isIngredientsLoading) {
+      dispatch(getIngredients());
+    }
+    const accessToken = getCookie('accessToken');
+    if (accessToken) {
+      dispatch(getUser());
+    }
+  }, [dispatch, ingredients.length, isIngredientsLoading]);
 
   return (
     <BrowserRouter>

@@ -6,11 +6,9 @@ import {
   selectUser,
   updateUser
 } from '../../services/slices/authSlice';
-import { TUser } from '@utils-types';
 import { TRegisterData } from '@api';
 
 export const Profile: FC = () => {
-  /** TODO: взять переменную из стора */
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
