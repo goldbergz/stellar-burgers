@@ -3,7 +3,8 @@ import {
   registerUserApi,
   getUserApi,
   updateUserApi,
-  logoutApi
+  logoutApi,
+  TRegisterData
 } from '@api';
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
@@ -41,7 +42,7 @@ export const getUser = createAsyncThunk('auth/getUser', async () => {
 
 export const updateUser = createAsyncThunk(
   'auth/updateUser',
-  async (data: Partial<{ email: string; name: string }>) => {
+  async (data: Partial<TRegisterData>) => {
     const res = await updateUserApi(data);
     return res.user;
   }
@@ -49,6 +50,8 @@ export const updateUser = createAsyncThunk(
 
 export const logout = createAsyncThunk('auth/logout', async () => {
   await logoutApi();
+  localStorage.removeItem('refreshToken');
+  setCookie('accessToken', '');
 });
 
 const authSlice = createSlice({
@@ -90,6 +93,7 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getUser.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.user = action.payload;
       })
       .addCase(getUser.rejected, (state, action) => {
@@ -101,6 +105,7 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.user = action.payload;
       })
       .addCase(updateUser.rejected, (state, action) => {
@@ -112,6 +117,7 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(logout.fulfilled, (state) => {
+        state.isLoading = false;
         state.user = null;
       })
       .addCase(logout.rejected, (state, action) => {
