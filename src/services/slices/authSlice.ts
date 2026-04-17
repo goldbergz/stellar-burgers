@@ -16,12 +16,14 @@ interface AuthState {
   user: TUser | null;
   isLoading: boolean;
   error: string | null;
+  isAuthChecked: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
   isLoading: false,
-  error: null
+  error: null,
+  isAuthChecked: false
 };
 
 export const login = createAsyncThunk(
@@ -57,7 +59,11 @@ export const logout = createAsyncThunk('auth/logout', async () => {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    setAuthChecked(state, action) {
+      state.isAuthChecked = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
 
@@ -95,10 +101,13 @@ const authSlice = createSlice({
       .addCase(getUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload;
+        state.isAuthChecked = true;
       })
       .addCase(getUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || 'Ошибка получения пользователя';
+        state.user = null;
+        state.isAuthChecked = true;
       })
 
       .addCase(updateUser.pending, (state) => {
@@ -130,4 +139,6 @@ const authSlice = createSlice({
 export const selectIsLoadingAuth = (state: RootState) => state.auth.isLoading;
 export const selectErrorAuth = (state: RootState) => state.auth.error;
 export const selectUser = (state: RootState) => state.auth.user;
+export const selectiIsAuthChecked = (state: RootState) =>
+  state.auth.isAuthChecked;
 export default authSlice.reducer;

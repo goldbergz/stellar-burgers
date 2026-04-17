@@ -32,7 +32,7 @@ import {
 import { GuestRoute } from '../Route/GuestRoute';
 import { useEffect } from 'react';
 import { getCookie } from '../../utils/cookie';
-import { getUser } from '../../services/slices/authSlice';
+import { getUser, selectiIsAuthChecked } from '../../services/slices/authSlice';
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -154,6 +154,7 @@ const App = () => {
   const isIngredientsLoading = useSelector(selectIsLoading);
   const ingredients = useSelector(selectIngredients);
   const error = useSelector(selectError);
+  const isAuthChecked = useSelector(selectiIsAuthChecked);
 
   useEffect(() => {
     if (ingredients.length === 0 && !isIngredientsLoading) {
@@ -169,7 +170,7 @@ const App = () => {
     <BrowserRouter>
       <div className={styles.app}>
         <AppHeader />
-        {isIngredientsLoading ? (
+        {isIngredientsLoading || !isAuthChecked ? (
           <Preloader />
         ) : error ? (
           <div className={`${styles.error} text text_type_main-medium pt-4`}>
