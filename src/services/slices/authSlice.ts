@@ -9,7 +9,7 @@ import {
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { setCookie } from '../../utils/cookie';
+import { getCookie, setCookie } from '../../utils/cookie';
 import { RootState } from '../store';
 
 interface AuthState {
@@ -55,6 +55,19 @@ export const logout = createAsyncThunk('auth/logout', async () => {
   localStorage.removeItem('refreshToken');
   setCookie('accessToken', '');
 });
+
+export const checkAuth = createAsyncThunk(
+  'auth/checkAuth',
+  async (_, { dispatch }) => {
+    const token = getCookie('accessToken');
+
+    if (token) {
+      await dispatch(getUser());
+    } else {
+      dispatch(setAuthChecked(true));
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: 'auth',
@@ -141,4 +154,5 @@ export const selectErrorAuth = (state: RootState) => state.auth.error;
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectiIsAuthChecked = (state: RootState) =>
   state.auth.isAuthChecked;
+export const { setAuthChecked } = authSlice.actions;
 export default authSlice.reducer;

@@ -20,10 +20,6 @@ export const IngredientDetails: FC = () => {
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
-
   if (isLoading || !ingredientData) {
     return <Preloader />;
   }

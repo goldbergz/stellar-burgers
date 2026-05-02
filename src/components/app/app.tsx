@@ -31,8 +31,10 @@ import {
 } from '../../services/slices/ingredientsSlice';
 import { GuestRoute } from '../Route/GuestRoute';
 import { useEffect } from 'react';
-import { getCookie } from '../../utils/cookie';
-import { getUser, selectiIsAuthChecked } from '../../services/slices/authSlice';
+import {
+  checkAuth,
+  selectiIsAuthChecked
+} from '../../services/slices/authSlice';
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -157,14 +159,12 @@ const App = () => {
   const isAuthChecked = useSelector(selectiIsAuthChecked);
 
   useEffect(() => {
-    if (ingredients.length === 0 && !isIngredientsLoading) {
-      dispatch(getIngredients());
-    }
-    const accessToken = getCookie('accessToken');
-    if (accessToken) {
-      dispatch(getUser());
-    }
-  }, [dispatch, ingredients.length, isIngredientsLoading]);
+    dispatch(getIngredients());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
