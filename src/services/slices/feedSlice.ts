@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrdersData } from '@utils-types';
 import { RootState } from '../store';
 
-interface FeedState extends TOrdersData {
+export interface FeedState extends TOrdersData {
   isLoading: boolean;
   error: string | null;
 }
