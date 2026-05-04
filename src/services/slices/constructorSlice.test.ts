@@ -3,7 +3,8 @@ import reducer, {
   addIngredient,
   moveIngredientDown,
   moveIngredientUp,
-  removeIngredient
+  removeIngredient,
+  setBun
 } from './constructorSlice';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
 
@@ -31,6 +32,7 @@ describe('burgerConstructor reducer', () => {
     bun: null,
     ingredients: []
   };
+
   test('addIngredient', () => {
     const newState = reducer(
       initialState,
@@ -38,6 +40,33 @@ describe('burgerConstructor reducer', () => {
     );
     expect(newState.ingredients).toHaveLength(1);
     expect(newState.ingredients[0].id).toBe('c1');
+  });
+
+  test('setBun should set bun and not touch ingredients', () => {
+    const bun: TIngredient = {
+      ...ingredient,
+      _id: 'bun1',
+      type: 'bun'
+    };
+
+    const newState = reducer(initialState, setBun(bun));
+
+    expect(newState.bun).toEqual(bun);
+    expect(newState.ingredients).toHaveLength(0);
+  });
+
+  test('addIngredient should add non-bun ingredient only to ingredients', () => {
+    const nonBunIngredient: TConstructorIngredient = {
+      ...ingredient,
+      type: 'main',
+      id: 'c2'
+    };
+
+    const newState = reducer(initialState, addIngredient(nonBunIngredient));
+
+    expect(newState.ingredients).toHaveLength(1);
+    expect(newState.ingredients[0].type).not.toBe('bun');
+    expect(newState.bun).toBeNull();
   });
 
   test('removeIngredient', () => {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1777729297995" clover="3.2.0">
-  <project timestamp="1777729297996" name="All files">
-    <metrics statements="770" coveredstatements="555" conditionals="43" coveredconditionals="33" methods="46" coveredmethods="9" elements="859" coveredelements="597" complexity="0" loc="770" ncloc="770" packages="3" files="8" classes="8"/>
+<coverage generated="1777915636099" clover="3.2.0">
+  <project timestamp="1777915636099" name="All files">
+    <metrics statements="770" coveredstatements="556" conditionals="44" coveredconditionals="34" methods="46" coveredmethods="10" elements="860" coveredelements="600" complexity="0" loc="770" ncloc="770" packages="3" files="8" classes="8"/>
     <package name="services">
       <metrics statements="34" coveredstatements="34" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="store.ts" path="/Users/goldberg/ITMO/sem_2/stellar-burgers/src/services/store.ts">
@@ -43,7 +43,7 @@
       </file>
     </package>
     <package name="services.slices">
-      <metrics statements="436" coveredstatements="402" conditionals="43" coveredconditionals="33" methods="27" coveredmethods="9"/>
+      <metrics statements="436" coveredstatements="403" conditionals="44" coveredconditionals="34" methods="27" coveredmethods="10"/>
       <file name="authSlice.ts" path="/Users/goldberg/ITMO/sem_2/stellar-burgers/src/services/slices/authSlice.ts">
         <metrics statements="158" coveredstatements="131" conditionals="13" coveredconditionals="10" methods="6" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
@@ -206,7 +206,7 @@
         <line num="158" count="1" type="stmt"/>
       </file>
       <file name="constructorSlice.ts" path="/Users/goldberg/ITMO/sem_2/stellar-burgers/src/services/slices/constructorSlice.ts">
-        <metrics statements="66" coveredstatements="62" conditionals="6" coveredconditionals="4" methods="7" coveredmethods="4"/>
+        <metrics statements="66" coveredstatements="63" conditionals="7" coveredconditionals="5" methods="7" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -225,11 +225,11 @@
         <line num="16" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
+        <line num="19" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="20" count="1" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
         <line num="22" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="23" count="1" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
         <line num="24" count="1" type="stmt"/>
         <line num="25" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="26" count="1" type="stmt"/>
